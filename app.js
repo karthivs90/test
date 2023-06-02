@@ -1,7 +1,7 @@
 var http=require("http");
 var express = require("express");
 var mysql = require("mysql2");
-var PORT = 1000;
+var port = process.env.PORT || 3000;
 var app = express();
 const bodyParser = require('body-parser');
 
@@ -74,6 +74,6 @@ app.post('/board', (req, res) => {
     })
 })
 
-app.listen(PORT, (req, res) => {
-    console.log(PORT,"listen")
+app.listen(port, (req, res) => {
+    console.log("listen")
 });
