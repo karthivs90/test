@@ -1,0 +1,99 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body style="background: fixed;">
+    <form id="form" onsubmit="event.preventDefault();onFormSubmit();" autocomplete="off">
+        <div class="container">
+            <h2 style="text-align: center;">Welcome</h2>
+            <div class="input-group" style="margin: auto;">
+                <div class="mb-3">
+                    <label class="form-label" for="inputuser">Name:</label>
+                    <input type="text" class="form-control" id="user" placeholder="user" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="inputage">age:</label>
+                    <input type="number" class="form-control" id="old" placeholder="age" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="inputnumber">number:</label>
+                    <input type="number" class="form-control" id="number" placeholder="number" required>
+                </div>
+                <br> <br>
+                <button type="submit" style="margin-left: 240px;" class="btn btn-primary" onclick="fun()">submit</button>
+            </div>
+            <div>
+                <table class="table" id="table">
+                    <thead>
+                        <th>Name</th>
+                        <th>age</th>
+                        <th>number</th>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+    <script>
+        selectedRow = null;
+        function fun() {
+            var fn = document.getElementById("user").value;
+            var fn2 = document.getElementById("old").value;
+            var fn3 = document.getElementById("number").value;
+
+            var fnlen=fn.length;
+            var fnlen2=fn2.length;
+            var fnlen3=fn3.length;
+
+            if (fn == "" || fn2 == "" || fn3 == "") {
+                alert("Fill the inputs");
+                return false;
+            } else if (fnlen <= 28 && fnlen2 <= 2 && fnlen3 == 10) {
+                alert("Must be limited characters");
+                return false;
+            } else {
+                var table = document.getElementById("table");
+                var row = table.insertRow(1);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+
+
+                cell1.innerHTML = fn;
+                cell2.innerHTML = fn2;
+                cell3.innerHTML = fn3;
+
+                cell4.innerHTML = `<input type="button" value="edit" onClick="Update(this)">
+                <input type="button" value="Delete" onclick="deleteRow(this)">`;
+
+                document.getElementById("form").reset();
+            }
+        }
+
+
+        function deleteRow(btn) {
+            var row = btn.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+
+        function Update(td) {
+            var Row = td.parentElement.parentElement;
+            document.getElementById("user").value = Row.cells[0].innerHTML;
+            document.getElementById("old").value = Row.cells[1].innerHTML;
+            document.getElementById("number").value = Row.cells[2].innerHTML;
+        }
+    </script>
+</body>
+
+</html>
