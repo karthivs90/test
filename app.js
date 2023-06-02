@@ -12,7 +12,8 @@ var connection = mysql.createConnection({
     host: 'dpg-cht1o78rddlc2mflvbng-a',
     user: 'roor',
     password: '0oOCKtgpEEbxgS59NS9J3drQfCFBPLwY',
-    database: 'register_ccl4'
+    database: 'register_ccl4',
+    port: '5432'
 });
 
 connection.connect((error) => {
