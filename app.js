@@ -9,10 +9,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 var connection = mysql.createConnection({
-    host: 'localhost',
+    host: 'dpg-cht1o78rddlc2mflvbng-a',
     user: 'roor',
-    password: 'root',
-    database: 'register'
+    password: '0oOCKtgpEEbxgS59NS9J3drQfCFBPLwY',
+    database: 'register_ccl4'
 });
 
 connection.connect((error) => {
