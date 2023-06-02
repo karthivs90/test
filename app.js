@@ -1,11 +1,9 @@
-var http=require("http");
-var express = require("express");
-var mysql = require("mysql2");
-var port = process.env.PORT || 3000;
-var app = express();
+const express = require("express");
 const bodyParser = require('body-parser');
 const { Client } = require('pg');
 
+const port = process.env.PORT || 3000;
+const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,14 +18,13 @@ const client = new Client({
 
 client.connect();
 
-
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/' + 'index.html')
-})
+  res.sendFile(__dirname + '/' + 'index.html');
+});
 
 app.get('/register', (req, res) => {
-    res.sendFile(__dirname + '/' + 'index.html')
-})
+  res.sendFile(__dirname + '/' + 'index.html');
+});
 
 app.post('/dash', (req, res) => {
   var firstName = req.body.inputfirst;
@@ -35,7 +32,7 @@ app.post('/dash', (req, res) => {
   var userName = req.body.inputuser;
   var password = req.body.password;
 
-  const query = 'INSERT INTO user (firstname, lastname, username, password) VALUES ($1, $2, $3, $4)';
+  const query = 'INSERT INTO "user" (firstname, lastname, username, password) VALUES ($1, $2, $3, $4)';
   const values = [firstName, lastName, userName, password];
 
   client.query(query, values)
@@ -49,33 +46,33 @@ app.post('/dash', (req, res) => {
     });
 });
 
-
 app.get('/login', (req, res) => {
-    res.sendFile(__dirname + '/' + 'login.html')
-})
+  res.sendFile(__dirname + '/' + 'login.html');
+});
 
 app.post('/board', (req, res) => {
-    var userName = req.body.inputuser;
-    var password = req.body.password;
+  var userName = req.body.inputuser;
+  var password = req.body.password;
 
-    client.connect(function (err) {
-        if (err) {
-            console.log(err);
-        }else{
-            console.log("checking")
-            query.query('SELECT * FROM user WHERE username = $ userName AND password = $ password', function (err, result) {
-                if (err) {
-                    console.log(err);
-                    res.write("unavailable user")
-                }else{
-                    console.log(userName,"Your permission is Granded");
-                    res.sendFile(__dirname+'/'+'task.html')
-                }
-            })
-        }
+  const query = 'SELECT * FROM "user" WHERE username = $1 AND password = $2';
+  const values = [userName, password];
+
+  client.query(query, values)
+    .then((result) => {
+      if (result.rowCount > 0) {
+        console.log(userName, "Your permission is granted.");
+        res.sendFile(__dirname + '/' + 'task.html');
+      } else {
+        console.log(userName, "Unavailable user.");
+        res.send("Unavailable user.");
+      }
     })
-})
+    .catch((err) => {
+      console.error('Error querying data:', err);
+      res.status(500).send('Error querying data from the database.');
+    });
+});
 
-app.listen(port, (req, res) => {
-    console.log("listen")
+app.listen(port, () => {
+  console.log("Server is listening on port", port);
 });
