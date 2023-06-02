@@ -30,26 +30,25 @@ app.get('/register', (req, res) => {
 })
 
 app.post('/dash', (req, res) => {
-    var firstName = req.body.inputfirst;
-    var lastName = req.body.inputlast;
-    var userName = req.body.inputuser;
-    var password = req.body.password;
+  var firstName = req.body.inputfirst;
+  var lastName = req.body.inputlast;
+  var userName = req.body.inputuser;
+  var password = req.body.password;
 
-    const query = 'INSERT INTO users (firstname, lastname, username, password) VALUES ($ firstName, $ lastName, $ userName, $ password)';
+  const query = 'INSERT INTO user (firstname, lastname, username, password) VALUES ($1, $2, $3, $4)';
+  const values = [firstName, lastName, userName, password];
 
-client.query(query)
-  .then(() => {
-    console.log('Data inserted successfully.');
-    res.sendFile(__dirname + '/' + 'login.html')
-  })
-  .catch((err) => {
-    console.error('Error inserting data:', err);
-  })
-  .finally(() => {
-    client.end();
-  });
+  client.query(query, values)
+    .then(() => {
+      console.log('Data inserted successfully.');
+      res.sendFile(__dirname + '/' + 'task.html');
+    })
+    .catch((err) => {
+      console.error('Error inserting data:', err);
+      res.status(500).send('Error inserting data into the database.');
+    });
+});
 
-})
 
 app.get('/login', (req, res) => {
     res.sendFile(__dirname + '/' + 'login.html')
