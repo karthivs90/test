@@ -20,15 +20,6 @@ const client = new Client({
 
 client.connect();
 
-client
-  .initialize()
-  .then(() => {
-    app.listen(port);
-    console.log('Data Source has been initialized');
-  })
-  .catch((err) => {
-    console.error('Error!!! during Data Source initialization', err);
-  });
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/' + 'index.html')
