@@ -44,7 +44,7 @@ app.post('/dash', (req, res) => {
     var userName = req.body.inputuser;
     var password = req.body.password;
 
-    const query = {'INSERT INTO users (firstname, lastname, username, password) VALUES ($firstName, $lastName, $userName, $password)'};
+    const query = 'INSERT INTO users (firstname, lastname, username, password) VALUES ($firstName, $lastName, $userName, $password)';
 
 client.query(query)
   .then(() => {
