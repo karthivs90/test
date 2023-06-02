@@ -44,15 +44,20 @@ app.post('/dash', (req, res) => {
     var userName = req.body.inputuser;
     var password = req.body.password;
 
-    var sql = INSERT INTO user (firstname, lastname, username, password) VALUES ('${firstName}', '${lastName}', '${userName}', '${password}');
-    client.query(sql, function (err, result) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(firstName,"file is updated");
-            res.sendFile(__dirname + '/' + 'login.html')
-        }
-    });
+    const query = {'INSERT INTO users (firstname, lastname, username, password) VALUES ($firstName, $lastName, $userName, $password)'};
+
+client.query(query)
+  .then(() => {
+    console.log('Data inserted successfully.');
+    res.sendFile(__dirname + '/' + 'login.html')
+  })
+  .catch((err) => {
+    console.error('Error inserting data:', err);
+  })
+  .finally(() => {
+    client.end();
+  });
+
 })
 
 app.get('/login', (req, res) => {
