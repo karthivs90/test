@@ -35,7 +35,7 @@ app.post('/dash', (req, res) => {
     var userName = req.body.inputuser;
     var password = req.body.password;
 
-    const query = 'INSERT INTO users (firstname, lastname, username, password) VALUES ($firstName, $lastName, $userName, $password)';
+    const query = 'INSERT INTO users (firstname, lastname, username, password) VALUES ($ firstName, $ lastName, $ userName, $ password)';
 
 client.query(query)
   .then(() => {
@@ -64,7 +64,7 @@ app.post('/board', (req, res) => {
             console.log(err);
         }else{
             console.log("checking")
-            query.query('SELECT * FROM user WHERE username = $userName AND password = $password', function (err, result) {
+            query.query('SELECT * FROM user WHERE username = $ userName AND password = $ password', function (err, result) {
                 if (err) {
                     console.log(err);
                     res.write("unavailable user")
