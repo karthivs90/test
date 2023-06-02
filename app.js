@@ -73,7 +73,7 @@ app.post('/board', (req, res) => {
             console.log(err);
         }else{
             console.log("checking")
-            connection.query(SELECT * FROM user WHERE username = '${userName}' AND password = '${password}', function (err, result) {
+            query.query('SELECT * FROM user WHERE username = $userName AND password = $password', function (err, result) {
                 if (err) {
                     console.log(err);
                     res.write("unavailable user")
