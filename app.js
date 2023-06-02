@@ -4,25 +4,31 @@ var mysql = require("mysql2");
 var port = process.env.PORT || 3000;
 var app = express();
 const bodyParser = require('body-parser');
+const { Client } = require('pg');
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var connection = mysql.createConnection({
-    host: 'dpg-cht1o78rddlc2mflvbng-a',
-    user: 'roor',
-    password: '0oOCKtgpEEbxgS59NS9J3drQfCFBPLwY',
-    database: 'register_ccl4',
-    port: '5432'
+const client = new Client({
+  user: 'roor',
+  host: 'dpg-cht1o78rddlc2mflvbng-a',
+  database: 'register_ccl4',
+  password: '0oOCKtgpEEbxgS59NS9J3drQfCFBPLwY',
+  port: 5432,
 });
 
-connection.connect((error) => {
-    if (error) {
-        console.log(error);
-    } else {
-        console.log('connencted');
-    }
-})
+client.connect();
+
+client
+  .initialize()
+  .then(() => {
+    app.listen(port);
+    console.log('Data Source has been initialized');
+  })
+  .catch((err) => {
+    console.error('Error!!! during Data Source initialization', err);
+  });
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/' + 'index.html')
@@ -38,8 +44,8 @@ app.post('/dash', (req, res) => {
     var userName = req.body.inputuser;
     var password = req.body.password;
 
-    var sql = `INSERT INTO user (firstname, lastname, username, password) VALUES ('${firstName}', '${lastName}', '${userName}', '${password}')`;
-    connection.query(sql, function (err, result) {
+    var sql = INSERT INTO "user" ("firstname", "lastname", "username", "password") VALUES ('${firstName}', '${lastName}', '${userName}', '${password}');
+    client.query(sql, function (err, result) {
         if (err) {
             console.log(err);
         } else {
@@ -57,12 +63,12 @@ app.post('/board', (req, res) => {
     var userName = req.body.inputuser;
     var password = req.body.password;
 
-    connection.connect(function (err) {
+    client.connect(function (err) {
         if (err) {
             console.log(err);
         }else{
             console.log("checking")
-            connection.query(`SELECT * FROM user WHERE username = '${userName}' AND password = '${password}'`, function (err, result) {
+            connection.query(SELECT * FROM user WHERE "username" = '${userName}' AND "password" = '${password}', function (err, result) {
                 if (err) {
                     console.log(err);
                     res.write("unavailable user")
