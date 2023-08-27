@@ -14,7 +14,7 @@
     <form class="con-box" action="/dash" method="post">
         <div class="container">
             <div class="table">
-                <h1 style="font-family: Times New Roman, Times, serif;">Create An Account</h1>
+                <h1 style="font-family: Times New Roman, Times, serif; serif; text-align: center;">Register</h1>
                 <label for="inputuser" class="sr-only">FirstName</label> <br>
                 <input type="text" id="inputfirst" placeholder="FirstName" name="inputfirst" required value="">
                 <br>
@@ -27,35 +27,30 @@
                 <label for="pass" class="sr-only">password</label><br>
                 <input type="password" id="password" placeholder="Password" name="password" required value=""> <br>
                 <br>
-                <label for="conpass" class="sr-only">password</label>
-                <input type="password" id="confirmpassword" placeholder="Confirm password" required value="">
-                <br> <br>
                 <button class="btn btn-primary" type="submit" onsubmit="submit()">Sign up</button>
             </div>
             <div>
-                <p>Already have an account? <a href="/login" style="color: black;">Sign in</a>.</p>
+                <p style="color: rgb(3, 145, 233);">Already have an account? <a href="/login" style="color: rgb(60, 30, 130); font: bolder;">Sign in</a>.</p>
             </div>
         </div>
     </form>
 
     <style>
         body {
-            background-color: bisque;
-            position: fixed;
+            background-color: black;
         }
-
-        .con-box {
-            margin: 5% 20% 15% auto;
-            /* 5% from the top, 15% from the bottom and centered */
-            border: 2px solid;
-            width: 32%;
-            border-radius: 6px;
-            
+        .container {
+            max-width: 390px;
+            margin: 150px auto;
+            padding: 30px;
+            border: 2px solid black;
+            border-radius: 20px;
+            box-shadow: 5px 1px  10px 10px  white;
         }
 
         input[type=text],
         input[type=password] {
-            width: 30%;
+            width: 100%;
             padding: 10px;
             border: none;
             background: #f1f1f1;
@@ -65,7 +60,7 @@
         input[type=text]:focus,
         input[type=password]:focus {
             background-color: #ddd;
-            outline: none;
+            outline: 3px solid blue;
         }
     </style>
 
