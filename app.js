@@ -18,11 +18,11 @@ const client = new Client({
 client.connect();
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/' + 'index.html')
+    res.sendFile(__dirname + '/' + 'index.html');
 })
 
 app.get('/register', (req, res) => {
-    res.sendFile(__dirname + '/' + 'register.html')
+    res.sendFile(__dirname + '/' + 'register.html');
 })
 
 app.post('/dash', (req, res) => {
@@ -46,7 +46,7 @@ app.post('/dash', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-    res.sendFile(__dirname + '/' + 'login.html')
+    res.sendFile(__dirname + '/' + 'login.html');
 })
 
 app.post('/board', (req, res) => {
