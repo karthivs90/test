@@ -10,28 +10,29 @@
     <title>Document</title>
 </head>
 
-<body style="background: fixed; background-color: bisque;">
+<body style="background: fixed; background-color: white;">
     <form id="form" onsubmit="event.preventDefault();onFormSubmit();" autocomplete="off">
-        <div class="container">
-            <h2 style="text-align: center;">Welcome</h2>
+        <div class="container" style="background-color: white;">
+            <h2 style="text-align: center; font-family: 'Courier New', Courier, monospace;">Welcome</h2>
             <div class="input-group" style="margin: auto;">
                 <div class="mb-3">
                     <label class="form-label" for="inputuser">Name:</label>
-                    <input type="text" class="form-control" id="user" placeholder="user" required>
+                    <input type="text" class="form-control" id="user" placeholder="User Name" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="inputage">age:</label>
-                    <input type="number" class="form-control" id="old" placeholder="age" required>
+                    <input type="number" class="form-control" id="old" placeholder="Age" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="inputnumber">number:</label>
-                    <input type="number" class="form-control" id="number" placeholder="number" required>
+                    <input type="number" class="form-control" id="number" placeholder="Mobile Number" required>
                 </div>
                 <br> <br>
-                <button type="submit" style="margin-left: 240px;" class="btn btn-primary" onclick="fun()">submit</button>
-            </div>
-            <div>
-                <table class="table" id="table">
+                <button type="submit" style="margin-left: 240px;" class="btn btn-primary"
+                    onclick="fun()">submit</button>
+            </div> <br>
+            <div style="background-color: gray; padding: 10px;">
+                <table class="table" style="margin-left: auto; padding-top: 100%;" id="table">
                     <thead>
                         <th>Name</th>
                         <th>age</th>
@@ -51,14 +52,18 @@
             var fn2 = document.getElementById("old").value;
             var fn3 = document.getElementById("number").value;
 
-            var fnlen=fn.length;
-            var fnlen2=fn2.length;
-            var fnlen3=fn3.length;
+            var fnlen = fn.length;
+            var fnlen2 = fn2.length;
+            var fnlen3 = fn3.length;
 
-            if (fn == "" || fn2 == "" || fn3 == "") {
+            console.log("fnlen:", fnlen);
+            console.log("fnlen2:", fnlen2);
+            console.log("fnlen3:", fnlen3);
+
+            if (fn === "" || fn2 === "" || fn3 === "") {
                 alert("Fill the inputs");
                 return false;
-            } else if (fnlen <= 28 && fnlen2 <= 2 && fnlen3 == 10) {
+            } else if ((fnlen2<=2) && (fnlen3===10)) {
                 alert("Must be limited characters");
                 return false;
             } else {
@@ -78,6 +83,8 @@
                 <input type="button" value="Delete" onclick="deleteRow(this)">`;
 
                 document.getElementById("form").reset();
+
+
             }
         }
 
