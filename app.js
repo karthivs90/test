@@ -1,5 +1,5 @@
 var express = require("express");
-var mysql = require('pg');
+var Client = require('pg');
 var port = process.env.PORT || 2000;
 var app = express();
 const bodyParser = require('body-parser');
